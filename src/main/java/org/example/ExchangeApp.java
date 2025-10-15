@@ -1,14 +1,13 @@
 package org.example;
 
-import org.example.ui.ConsoleInterface;
+import org.example.ui.MenuController;
 
 /**
  * Klasa główna aplikacji wymiany walut NBP
  */
-public class ExchangeApp {
 
+public class ExchangeApp {
     public void start() {
-        ConsoleInterface ui = new ConsoleInterface();
-        ui.run();
+        new MenuController().start();
     }
 }

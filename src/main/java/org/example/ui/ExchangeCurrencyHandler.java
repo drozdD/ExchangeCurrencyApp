@@ -4,47 +4,42 @@ import org.example.business.Exchange;
 import org.example.model.ExchangeRate;
 import org.example.model.ExchangeTable;
 
-import java.util.Scanner;
-
 /**
- * Handler odpowiedzialny za przeliczanie walut
+ * Handler do przeliczania walut.
+ * Dziedziczy po ConsoleInterface.
  */
-public class ExchangeCurrencyHandler implements MenuHandler {
+public class ExchangeCurrencyHandler extends ConsoleInterface {
 
-    private final ExchangeTable table;
-    private final Scanner scanner;
-
-    public ExchangeCurrencyHandler(ExchangeTable table, Scanner scanner) {
-        this.table = table;
-        this.scanner = scanner;
+    public ExchangeCurrencyHandler(ExchangeTable table, java.util.Scanner scanner) {
+        super(table, scanner);
     }
 
     @Override
     public boolean handle() {
-        System.out.println("\n=== PRZELICZANIE WALUT ===");
+        clearScreen();
+        System.out.println("=== PRZELICZANIE WALUT ===\n");
 
         System.out.print("Podaj kod waluty źródłowej (np. USD): ");
-        String fromCode = scanner.nextLine().trim().toUpperCase();
+        String from = scanner.nextLine().trim().toUpperCase();
 
         System.out.print("Podaj kod waluty docelowej (np. EUR): ");
-        String toCode = scanner.nextLine().trim().toUpperCase();
+        String to = scanner.nextLine().trim().toUpperCase();
 
         System.out.print("Podaj kwotę: ");
         String amountStr = scanner.nextLine();
 
         try {
             double amount = Double.parseDouble(amountStr);
+            ExchangeRate r1 = currentTable.getRate(from);
+            ExchangeRate r2 = currentTable.getRate(to);
 
-            ExchangeRate fromRate = table.getRate(fromCode);
-            ExchangeRate toRate = table.getRate(toCode);
-
-            if (fromRate == null || toRate == null) {
-                System.out.println("Nie znaleziono jednej z walut w tabeli!");
+            if (r1 == null || r2 == null) {
+                System.out.println("Nie znaleziono jednej z walut!");
                 return true;
             }
 
-            String result = Exchange.exchangeFormatted(amount, fromRate, toRate);
-            System.out.println(result);
+            String result = Exchange.exchangeFormatted(amount, r1, r2);
+            System.out.println("\n" + result);
 
         } catch (NumberFormatException e) {
             System.out.println("Niepoprawna kwota!");

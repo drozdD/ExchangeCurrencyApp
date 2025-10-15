@@ -3,20 +3,20 @@ package org.example.ui;
 import org.example.model.ExchangeTable;
 
 /**
- * Handler odpowiedzialny za wyświetlenie tabeli kursów
+ * Handler wyświetlający tabelę kursów.
+ * Dziedziczy po ConsoleInterface.
  */
-public class DisplayTableHandler implements MenuHandler {
+public class DisplayTableHandler extends ConsoleInterface {
 
-    private final ExchangeTable table;
-
-    public DisplayTableHandler(ExchangeTable table) {
-        this.table = table;
+    public DisplayTableHandler(ExchangeTable table, java.util.Scanner scanner) {
+        super(table, scanner);
     }
 
     @Override
     public boolean handle() {
-        System.out.println();
-        System.out.println(table.toString());
+        clearScreen();
+        System.out.println("=== AKTUALNA TABELA KURSÓW ===\n");
+        System.out.println(currentTable.toString());
         return true;
     }
 }
