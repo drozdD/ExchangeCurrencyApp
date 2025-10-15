@@ -26,7 +26,7 @@ public class ExchangeCurrencyHandler extends ConsoleInterface {
         String to = scanner.nextLine().trim().toUpperCase();
 
         System.out.print("Podaj kwotę: ");
-        String amountStr = scanner.nextLine();
+        String amountStr = scanner.nextLine().replace(',', '.');;
 
         try {
             double amount = Double.parseDouble(amountStr);
@@ -34,7 +34,7 @@ public class ExchangeCurrencyHandler extends ConsoleInterface {
             ExchangeRate r2 = currentTable.getRate(to);
 
             if (r1 == null || r2 == null) {
-                System.out.println("Nie znaleziono jednej z walut!");
+                System.out.println("Nie znaleziono waluty!");
                 return true;
             }
 

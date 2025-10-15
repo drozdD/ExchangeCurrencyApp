@@ -13,15 +13,6 @@ public class Exchange {
     }
 
     /**
-     * Przelicza kwotę z jednej waluty na drugą
-     *
-     * Wzór: amount * (r1.rate / r1.multiplier) / (r2.rate / r2.multiplier)
-     *
-     * Przykład:
-     * - Mam 100 USD (kurs 4.00 PLN)
-     * - Chcę EUR (kurs 4.50 PLN)
-     * - 100 * (4.00/1) / (4.50/1) = 88.89 EUR
-     *
      * @param amount kwota do przeliczenia
      * @param r1 kurs waluty źródłowej
      * @param r2 kurs waluty docelowej
